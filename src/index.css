@@ -1,0 +1,57 @@
+@import 'antd/dist/reset.css';
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  background: #eaf1fb;
+}
+
+body, #root {
+  margin: 0;
+  min-width: 100vw;
+  min-height: 100vh;
+  background: #eaf1fb;
+}
+
+.ant-layout {
+  background: #eaf1fb;
+  min-height: 100vh;
+}
+
+.ant-card {
+  box-shadow: 0 4px 24px 0 rgba(24, 144, 255, 0.08);
+  border-radius: 18px;
+  border: none;
+  background: #fff;
+}
+
+.ant-list-item {
+  padding: 16px 0;
+}
+
+.ant-list-item-meta-title {
+  margin-bottom: 4px !important;
+  font-weight: 600;
+}
+
+.ant-list-item-meta-description {
+  font-size: 13px;
+  color: #8c8c8c;
+}
+
+@media (max-width: 900px) {
+  .main-content-flex {
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+  .test-list-card {
+    width: 100% !important;
+    min-width: 0 !important;
+    margin-bottom: 12px;
+  }
+  .test-result-card {
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+}
