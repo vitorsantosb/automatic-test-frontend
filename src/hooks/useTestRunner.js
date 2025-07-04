@@ -10,6 +10,7 @@ export function useTestRunner() {
   const [selectedTest, setSelectedTest] = useState(null);
   const [loading, setLoading] = useState(false);
   const [testLogs, setTestLogs] = useState([]);
+  const [vncModalVisible, setVncModalVisible] = useState(false);
   const { socket, isConnected } = useSocket();
 
   useEffect(() => {
@@ -28,6 +29,7 @@ export function useTestRunner() {
     const handleTestDone = (data) => {
       console.log('✅ Teste finalizado:', data);
       setLoading(false);
+      // Mantém o VNC visível permanentemente
       if (data.success) {
         message.success('Teste concluído com sucesso!');
       }
@@ -36,6 +38,7 @@ export function useTestRunner() {
     const handleTestError = (data) => {
       console.error('❌ Erro no teste:', data);
       setLoading(false);
+      // Mantém o VNC visível permanentemente mesmo em caso de erro
       message.error(`Erro no teste: ${data.message}`);
     };
 
@@ -80,6 +83,7 @@ export function useTestRunner() {
     setSelectedTest(test);
     setLoading(true);
     setTestLogs([]);
+    setVncModalVisible(true);
     
     try {
       console.log('🚀 Enviando comando para executar teste:', test.path);
@@ -88,6 +92,7 @@ export function useTestRunner() {
       console.error('❌ Erro ao executar teste:', error);
       message.error('Falha ao iniciar o teste');
       setLoading(false);
+      setVncModalVisible(false);
     }
   }, [socket, isConnected]);
 
@@ -98,6 +103,7 @@ export function useTestRunner() {
     selectedTest,
     loading,
     testLogs,
+    vncModalVisible,
     isConnected,
     fetchTests,
     handleSearch,
@@ -105,5 +111,6 @@ export function useTestRunner() {
     setLoading,
     setSelectedTest,
     setFilteredTests,
+    setVncModalVisible,
   };
 } 

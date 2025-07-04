@@ -4,24 +4,23 @@ import { SocketProvider } from './contexts/SocketContext.jsx';
 import HeaderBar from './components/HeaderBar.jsx';
 import TestList from './components/TestList.jsx';
 import TestResultPanel from './components/TestResultPanel.jsx';
+import { VncPanel } from './components/VncPanel.jsx';
 import { useTestRunner } from './hooks/useTestRunner.js';
 
 const { Content } = Layout;
 
 function AppContent() {
   const {
-    tests,
     filteredTests,
     searchText,
     selectedTest,
     loading,
     testLogs,
+    vncModalVisible,
     fetchTests,
     handleSearch,
     executeTest,
-    setLoading,
-    setSelectedTest,
-    setFilteredTests,
+    setVncModalVisible,
   } = useTestRunner();
 
   useEffect(() => {
@@ -41,11 +40,19 @@ function AppContent() {
             loading={loading}
             selectedTest={selectedTest}
           />
-          <TestResultPanel
-            loading={loading}
-            logs={testLogs}
-            onRefresh={fetchTests}
-          />
+          <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+            <VncPanel
+              visible={vncModalVisible}
+              testName={selectedTest?.name || 'Teste'}
+              loading={loading}
+              onClose={() => setVncModalVisible(false)}
+            />
+            <TestResultPanel
+              loading={loading}
+              logs={testLogs}
+              onRefresh={fetchTests}
+            />
+          </div>
         </div>
       </Content>
     </Layout>
